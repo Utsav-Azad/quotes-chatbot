@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # Rasa server inside same container
-RASA_URL = "http://0.0.0.0:5005/webhooks/rest/webhook"
+RASA_URL = "http://localhost:5005/webhooks/rest/webhook"
 
 
 @app.route("/")
@@ -32,7 +32,7 @@ def send_message():
             return jsonify({"reply": "Sorry, I didn't understand that."})
 
     except Exception as e:
-        print("Error communicating with Rasa:", e)
+        print("Rasa error:", e)
         return jsonify({"reply": "Bot is temporarily unavailable."})
 
 
