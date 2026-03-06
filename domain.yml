@@ -1,0 +1,23 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - request_motivation
+  - request_love
+  - request_success
+  - request_humor
+
+responses:
+  utter_greet:
+    - text: "Hey! What kind of quote do you need today? 😊"
+
+  utter_goodbye:
+    - text: "Stay positive! See you soon ✨"
+
+actions:
+  - action_get_quote
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

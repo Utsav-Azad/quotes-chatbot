@@ -1,0 +1,31 @@
+version: "3.1"
+
+stories:
+
+- story: test motivation quote
+  steps:
+  - user: |
+      motivate me
+    intent: request_motivation
+  - action: action_get_quote
+
+- story: test love quote
+  steps:
+  - user: |
+      give me a love quote
+    intent: request_love
+  - action: action_get_quote
+
+- story: test greeting
+  steps:
+  - user: |
+      hi
+    intent: greet
+  - action: utter_greet
+
+- story: test goodbye
+  steps:
+  - user: |
+      bye
+    intent: goodbye
+  - action: utter_goodbye

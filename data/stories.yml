@@ -1,0 +1,33 @@
+version: "3.1"
+
+stories:
+
+- story: greet flow
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+- story: motivation flow
+  steps:
+    - intent: request_motivation
+    - action: action_get_quote
+
+- story: love flow
+  steps:
+    - intent: request_love
+    - action: action_get_quote
+
+- story: success flow
+  steps:
+    - intent: request_success
+    - action: action_get_quote
+
+- story: humor flow
+  steps:
+    - intent: request_humor
+    - action: action_get_quote
+
+- story: goodbye flow
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye

@@ -1,0 +1,60 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: request_motivation
+  examples: |
+    - I need motivation
+    - motivate me
+    - inspire me
+    - give me a motivational quote
+    - I feel low motivate me
+
+- intent: request_love
+  examples: |
+    - give me a love quote
+    - something romantic
+    - I want a love quote
+    - say something about love
+
+- intent: request_success
+  examples: |
+    - success quote
+    - how to become successful
+    - inspire me for success
+    - give me a success quote
+
+- intent: request_humor
+  examples: |
+    - tell me something funny
+    - make me laugh
+    - funny quote please
+    - I want a joke
