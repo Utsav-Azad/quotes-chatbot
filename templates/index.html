@@ -1,33 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quotes Chatbot</title>
+    <title>QuoteBot AI - Daily Wisdom</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
             margin: 0;
             font-family: "Segoe UI", sans-serif;
-            background: #f4f6fb;
+            /* Beautiful gradient background matching your design */
+            background: linear-gradient(135deg, #7480fa 0%, #9568e6 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
+        /* --- LANDING PAGE STYLES --- */
+        .landing-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 60px 50px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            max-width: 500px;
+            transition: opacity 0.5s ease;
+        }
+
+        .landing-container h1 {
+            font-size: 38px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .landing-container p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .start-btn {
+            background: white;
+            color: #7480fa;
+            border: none;
+            padding: 16px 40px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 30px;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .tags {
+            font-size: 13px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0.9;
+        }
+
+        /* --- CHAT BOT STYLES --- */
         .chat-container {
+            display: none; /* Hidden until button is clicked */
             width: 600px;
             height: 700px;
             background: white;
             border-radius: 20px;
-            display: flex;
             flex-direction: column;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .chat-header {
-            background: #5b6cff;
+            background: #7480fa; /* Matched to the new theme */
             color: white;
             padding: 18px;
             font-size: 18px;
@@ -53,7 +117,7 @@
         }
 
         .user-message {
-            background: #5b6cff;
+            background: #7480fa;
             color: white;
             align-self: flex-end;
             border-bottom-right-radius: 5px;
@@ -81,10 +145,12 @@
             border-radius: 20px;
             cursor: pointer;
             font-size: 13px;
+            color: #555;
+            transition: background 0.2s, color 0.2s;
         }
 
         .quick-buttons button:hover {
-            background: #5b6cff;
+            background: #7480fa;
             color: white;
         }
 
@@ -102,22 +168,34 @@
         }
 
         .chat-input button {
-            background: #5b6cff;
+            background: #7480fa;
             color: white;
             border: none;
             padding: 15px 20px;
             cursor: pointer;
+            font-weight: bold;
         }
 
         .chat-input button:hover {
-            background: #3f4fe0;
+            background: #5b68e0;
         }
     </style>
 </head>
 
 <body>
 
-<div class="chat-container">
+<div class="landing-container" id="landingPage">
+    <h1>Daily Inspiration</h1>
+    <p>Your personal AI companion for wisdom, motivation, and clarity. Discover the perfect quote for every moment of your life.</p>
+    <button class="start-btn" onclick="startChat()">START CHATTING</button>
+    <div class="tags">
+        <span>✨ Motivation</span>
+        <span>💖 Love</span>
+        <span>🚀 Success</span>
+    </div>
+</div>
+
+<div class="chat-container" id="chatContainer">
     <div class="chat-header">
         ✨ Quotes Recommendation Chatbot
     </div>
@@ -142,6 +220,13 @@
 </div>
 
 <script>
+    // NEW FUNCTION: Switches from Landing Page to Chat Window
+    function startChat() {
+        document.getElementById('landingPage').style.display = 'none';
+        document.getElementById('chatContainer').style.display = 'flex';
+    }
+
+    // Existing Chat Functions
     function appendMessage(text, className) {
         const chatBox = document.getElementById("chatBox");
         const msg = document.createElement("div");
