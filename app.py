@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # Rasa server inside same container
-RASA_URL = "http://0.0.0.0:5005/webhooks/rest/webhook"
+RASA_URL = "http://127.0.0.1:5005/webhooks/rest/webhook"
 
 
 @app.route("/")
