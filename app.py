@@ -4,11 +4,14 @@ import os
 
 app = Flask(__name__)
 
-RASA_URL = "http://127.0.0.1:5005/webhooks/rest/webhook"
+# Rasa server inside same container
+RASA_URL = "http://0.0.0.0:5005/webhooks/rest/webhook"
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/send", methods=["POST"])
 def send_message():
@@ -19,15 +22,20 @@ def send_message():
         "message": user_message
     }
 
-    response = requests.post(RASA_URL, json=payload)
-    bot_response = response.json()
+    try:
+        response = requests.post(RASA_URL, json=payload, timeout=10)
+        bot_response = response.json()
 
-    if bot_response:
-        return jsonify({"reply": bot_response[0]["text"]})
-    else:
-        return jsonify({"reply": "Sorry, I didn't understand that."})
+        if bot_response:
+            return jsonify({"reply": bot_response[0]["text"]})
+        else:
+            return jsonify({"reply": "Sorry, I didn't understand that."})
+
+    except Exception as e:
+        print("Error communicating with Rasa:", e)
+        return jsonify({"reply": "Bot is temporarily unavailable."})
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render gives PORT automatically
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
