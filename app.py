@@ -23,18 +23,19 @@ def send_message():
     }
 
     try:
-        response = requests.post(RASA_URL, json=payload, timeout=10)
+        response = requests.post(RASA_URL, json=payload, timeout=15)
+        response.raise_for_status()
+
         bot_response = response.json()
 
         if bot_response:
-            return jsonify({"reply": bot_response[0]["text"]})
+            return jsonify({"reply": bot_response[0].get("text", "No reply")})
         else:
             return jsonify({"reply": "Sorry, I didn't understand that."})
 
     except Exception as e:
-        print("Rasa error:", e)
+        print("Error connecting to Rasa:", e)
         return jsonify({"reply": "Bot is temporarily unavailable."})
-
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
